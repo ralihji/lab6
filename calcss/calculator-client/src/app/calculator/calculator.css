@@ -1,0 +1,255 @@
+:host {
+  display: block;
+}
+
+/* Nombre 1, opération, nombre 2 et bouton sur une ligne, comme une équation */
+.equation {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 16px 18px;
+  padding: 22px 24px 6px;
+}
+
+label,
+legend {
+  display: block;
+  margin-bottom: 8px;
+  padding: 0;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--encre-douce);
+}
+
+input[type='text'] {
+  width: 100%;
+  height: 64px;
+  padding: 0 16px;
+  font-family: var(--mono);
+  font-size: 26px;
+  text-align: right;
+  background: #fbfcfe;
+  border: 1.5px solid var(--ligne);
+  border-radius: 12px;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+
+input[type='text']::placeholder {
+  color: #b4bcc8;
+}
+
+input[type='text']:focus {
+  outline: none;
+  border-color: var(--bleu);
+  box-shadow: 0 0 0 4px rgb(47 95 152 / 16%);
+}
+
+/* La couleur du champ suit l'état donné par Angular */
+input.ng-invalid.ng-touched {
+  border-color: var(--danger);
+  background: #fffafa;
+}
+
+input.ng-valid.ng-dirty {
+  border-color: var(--succes);
+}
+
+.erreur {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  font-size: 14px;
+  color: var(--danger);
+}
+
+.pastille {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--danger);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* Choix de l'opération : boutons radio présentés comme des touches */
+.operateurs {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.choix {
+  display: flex;
+  gap: 8px;
+}
+
+.operateur {
+  position: relative;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  width: 60px;
+  height: 64px;
+  margin: 0;
+  border: 1.5px solid var(--ligne);
+  border-radius: 12px;
+  background: #fff;
+  color: var(--encre);
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.operateur input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.operateur:hover {
+  border-color: var(--bleu);
+}
+
+.symbole {
+  font-size: 26px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.route {
+  margin-top: 5px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--encre-douce);
+}
+
+.operateur:has(input:checked) {
+  background: var(--nuit);
+  border-color: var(--nuit);
+  color: #fff;
+}
+
+.operateur:has(input:checked) .route {
+  color: var(--ambre);
+}
+
+.operateur:has(input:focus-visible) {
+  outline: 3px solid #f2c94c;
+  outline-offset: 2px;
+}
+
+.calculer {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  height: 64px;
+  margin-top: 27px;
+  padding: 0 24px;
+  border: 0;
+  border-radius: 12px;
+  background: var(--bleu);
+  color: #fff;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.calculer:hover {
+  background: var(--bleu-fonce);
+}
+
+.calculer:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.egal {
+  font-size: 28px;
+  line-height: 1;
+}
+
+/* Aperçu de l'URL : route en bleu, valeurs des {variables} en ambre */
+.apercu {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+  padding: 14px 24px 22px;
+  font-size: 14px;
+  color: var(--encre-douce);
+}
+
+.apercu code {
+  padding: 6px 12px;
+  border: 1px solid var(--ligne);
+  border-radius: 8px;
+  background: #f4f6fa;
+  color: var(--encre);
+  overflow-wrap: break-word;
+}
+
+.methode {
+  margin-right: 8px;
+  font-weight: 600;
+  color: var(--succes);
+}
+
+.base {
+  color: var(--encre-douce);
+}
+
+.op {
+  font-weight: 600;
+  color: var(--bleu);
+}
+
+.val {
+  font-weight: 600;
+  color: #b7791f;
+}
+
+.grille {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  align-items: start;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+@media (max-width: 900px) {
+  .grille {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* Téléphone : une seule colonne, touches d'opération sur toute la largeur */
+@media (max-width: 720px) {
+  .equation {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .choix {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .operateur {
+    width: auto;
+  }
+
+  .calculer {
+    justify-content: center;
+    width: 100%;
+    margin-top: 4px;
+  }
+}

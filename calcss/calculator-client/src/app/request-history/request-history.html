@@ -1,0 +1,40 @@
+<section class="carte historique" aria-labelledby="titre-historique">
+  <div class="carte-entete">
+    <h2 id="titre-historique">Historique des requêtes</h2>
+    @if (entrees().length > 0) {
+      <span class="badge compte">{{ entrees().length }} {{ entrees().length > 1 ? 'requêtes' : 'requête' }}</span>
+      <button type="button" class="effacer" (click)="effacer.emit()">Effacer</button>
+    }
+  </div>
+
+  @if (entrees().length > 0) {
+    <div class="defilement">
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Route GET</th>
+            <th scope="col">Réponse</th>
+            <th scope="col">Statut</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (entree of entrees(); track entree.id) {
+            <tr>
+              <td class="numero">{{ entree.id }}</td>
+              <td class="route"><code><span class="base">/calculator/</span><strong>{{ entree.operation }}</strong>/{{ entree.nombre1 }}/{{ entree.nombre2 }}</code></td>
+              <td><code [class.refus]="entree.status !== 200">{{ entree.body || '(aucune)' }}</code></td>
+              <td>
+                <span class="badge" [class.ok]="entree.status === 200" [class.ko]="entree.status !== 200">
+                  {{ statut(entree.status) }}
+                </span>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  } @else {
+    <p class="vide">Les requêtes envoyées à l'API apparaîtront ici, avec la réponse et le code HTTP.</p>
+  }
+</section>

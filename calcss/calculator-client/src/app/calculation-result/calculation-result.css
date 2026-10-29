@@ -1,0 +1,126 @@
+:host {
+  display: block;
+}
+
+/* Bande à gauche : verte pour un résultat, rouge pour une erreur */
+.resultat {
+  padding: 22px 24px 24px;
+  border-left: 5px solid var(--ligne);
+}
+
+.resultat.succes {
+  border-left-color: var(--succes);
+}
+
+.resultat.echec {
+  border-left-color: var(--danger);
+}
+
+.ligne-statut {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.etiquette {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--encre-douce);
+}
+
+.duree {
+  margin-left: auto;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--encre-douce);
+}
+
+.expression {
+  margin-top: 16px;
+  font-family: var(--mono);
+  font-size: 18px;
+  color: var(--encre-douce);
+}
+
+.valeur {
+  font-size: 56px;
+  font-weight: 700;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+}
+
+.titre-erreur {
+  margin-top: 16px;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--danger);
+}
+
+.detail {
+  margin-top: 6px;
+  color: var(--encre-douce);
+}
+
+/* Requête et réponse brutes, pour voir l'échange REST */
+.echange {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 8px 14px;
+  margin: 20px 0 0;
+  padding-top: 16px;
+  border-top: 1px dashed var(--ligne);
+  font-size: 14px;
+}
+
+.echange dt {
+  color: var(--encre-douce);
+}
+
+.echange dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.echec .corps {
+  color: var(--danger);
+}
+
+.attente {
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  padding: 30px 8px;
+  text-align: center;
+  color: var(--encre-douce);
+}
+
+.attente svg {
+  margin-bottom: 6px;
+  color: #b4bcc8;
+}
+
+.attente-titre {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--encre);
+}
+
+/* Téléphone : étiquette au-dessus de la valeur pour garder la route sur une ligne */
+@media (max-width: 720px) {
+  .valeur {
+    font-size: 44px;
+  }
+
+  .echange {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2px;
+  }
+
+  .echange dd {
+    margin-bottom: 10px;
+  }
+}

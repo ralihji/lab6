@@ -1,0 +1,60 @@
+<section class="carte" aria-labelledby="titre-calcul">
+  <div class="carte-entete">
+    <h2 id="titre-calcul">Nouvelle opération</h2>
+    <p>Chaque calcul envoie une requête <code>GET</code> à l'API Spring Boot, qui renvoie le résultat.</p>
+  </div>
+
+  <form class="equation" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+    <div class="champ">
+      <label for="nombre1">Nombre 1</label>
+      <input id="nombre1" type="text" inputmode="decimal" autocomplete="off" placeholder="Ex. 7"
+             formControlName="nombre1" [attr.aria-invalid]="invalide('nombre1')"
+             aria-describedby="erreur-nombre1">
+      @if (invalide('nombre1')) {
+        <p class="erreur" id="erreur-nombre1">
+          <span class="pastille" aria-hidden="true">!</span>{{ messageErreur('nombre1') }}
+        </p>
+      }
+    </div>
+
+    <fieldset class="operateurs">
+      <legend>Opération</legend>
+      <div class="choix">
+        @for (op of operations; track op.id) {
+          <label class="operateur" [title]="op.nom">
+            <input type="radio" formControlName="operation" [value]="op.id" [attr.aria-label]="op.nom">
+            <span class="symbole" aria-hidden="true">{{ op.symbole }}</span>
+            <span class="route" aria-hidden="true">{{ op.id }}</span>
+          </label>
+        }
+      </div>
+    </fieldset>
+
+    <div class="champ">
+      <label for="nombre2">Nombre 2</label>
+      <input id="nombre2" type="text" inputmode="decimal" autocomplete="off" placeholder="Ex. 2"
+             formControlName="nombre2" [attr.aria-invalid]="invalide('nombre2')"
+             aria-describedby="erreur-nombre2">
+      @if (invalide('nombre2')) {
+        <p class="erreur" id="erreur-nombre2">
+          <span class="pastille" aria-hidden="true">!</span>{{ messageErreur('nombre2') }}
+        </p>
+      }
+    </div>
+
+    <button type="submit" class="calculer" [disabled]="enCours()">
+      <span class="egal" aria-hidden="true">=</span>
+      <span>{{ enCours() ? 'Envoi...' : 'Calculer' }}</span>
+    </button>
+  </form>
+
+  <p class="apercu">
+    <span>Requête qui sera envoyée</span>
+    <code><span class="methode">GET</span> <span class="base">localhost:8080/calculator/</span><wbr><span class="op">{{ apercu().operation }}</span>/<wbr><span class="val">{{ apercu().nombre1 }}</span>/<wbr><span class="val">{{ apercu().nombre2 }}</span></code>
+  </p>
+</section>
+
+<div class="grille">
+  <app-calculation-result [calcul]="dernier()" />
+  <app-request-history [entrees]="historique()" (effacer)="effacerHistorique()" />
+</div>

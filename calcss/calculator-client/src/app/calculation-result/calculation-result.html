@@ -1,0 +1,42 @@
+<section class="carte resultat" [class.succes]="etat() === 'succes'" [class.echec]="etat() === 'echec'"
+         aria-live="polite" aria-labelledby="titre-resultat">
+  @if (calcul(); as calcul) {
+    <div class="ligne-statut">
+      <h2 id="titre-resultat" class="etiquette">{{ etat() === 'succes' ? 'Résultat' : 'Erreur' }}</h2>
+      <span class="badge" [class.ok]="calcul.status === 200" [class.ko]="calcul.status !== 200">
+        {{ statut(calcul.status) }}
+      </span>
+      @if (calcul.status !== 0) {
+        <span class="duree">{{ calcul.durationMs }} ms</span>
+      }
+    </div>
+
+    @if (calcul.result !== null) {
+      <p class="expression">
+        {{ nombre(calcul.nombre1) | number: '1.0-10' }} {{ symbole(calcul.operation) }}
+        {{ nombre(calcul.nombre2) | number: '1.0-10' }} =
+      </p>
+      <p class="valeur">{{ calcul.result | number: '1.0-10' }}</p>
+    } @else {
+      <h3 class="titre-erreur">{{ explication()?.titre }}</h3>
+      <p class="detail">{{ explication()?.detail }}</p>
+    }
+
+    <dl class="echange">
+      <dt>Requête</dt>
+      <dd><code>GET {{ chemin(calcul.url) }}</code></dd>
+      <dt>Réponse de l'API</dt>
+      <dd><code class="corps">{{ calcul.body || '(aucune réponse)' }}</code></dd>
+    </dl>
+  } @else {
+    <h2 id="titre-resultat" class="visually-hidden">Résultat</h2>
+    <div class="attente">
+      <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
+           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M4 8h14l-3.5-3.5M20 16H6l3.5 3.5" />
+      </svg>
+      <p class="attente-titre">Aucun calcul pour l'instant</p>
+      <p>Entrez deux nombres, choisissez une opération, puis cliquez sur <strong>Calculer</strong>.</p>
+    </div>
+  }
+</section>

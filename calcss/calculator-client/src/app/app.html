@@ -1,0 +1,43 @@
+<header class="bandeau">
+  <div class="interieur">
+    <div class="marque">
+      <span class="logo" aria-hidden="true">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round">
+          <rect x="4.5" y="2.5" width="15" height="19" rx="2.5" />
+          <rect x="7.5" y="5.5" width="9" height="4" rx="1" />
+          <path d="M8.5 13.5h.01M12 13.5h.01M15.5 13.5h.01M8.5 17.5h.01M12 17.5h.01M15.5 17.5h.01" stroke-width="2.6" />
+        </svg>
+      </span>
+      <div>
+        <p class="sur-titre">SEG3502 · Laboratoire 6</p>
+        <h1>Calculatrice REST</h1>
+        <p class="sous-titre">Client Angular de l'API Spring Boot <code>calculator-api</code></p>
+      </div>
+    </div>
+
+    <div class="actions">
+      <p class="etat" role="status" [class.en-ligne]="status() === 'en-ligne'"
+         [class.hors-ligne]="status() === 'hors-ligne'">
+        <span class="point" aria-hidden="true"></span>
+        @switch (status()) {
+          @case ('en-ligne') { API en ligne }
+          @case ('hors-ligne') { API hors ligne }
+          @default { Connexion à l'API... }
+        }
+        <code>localhost:8080</code>
+      </p>
+      <a class="lien-doc" [href]="swaggerUrl" target="_blank" rel="noopener">
+        Documentation OpenAPI <span aria-hidden="true">↗</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<main class="contenu">
+  <app-calculator />
+</main>
+
+<footer class="pied">
+  SEG3502 · Université d'Ottawa · Laboratoire 6 : services Web REST avec Spring Boot et Angular
+</footer>
