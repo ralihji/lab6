@@ -3,12 +3,15 @@ package seg3x02.calculatorapi.controller
 import io.swagger.v3.oas.annotations.Operation
 import io.swagger.v3.oas.annotations.Parameter
 import io.swagger.v3.oas.annotations.tags.Tag
+import org.springframework.web.bind.annotation.CrossOrigin
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
+// Autorise le client Angular (ng serve, port 4200) à appeler l'API depuis un autre domaine (CORS)
+@CrossOrigin("http://localhost:4200")
 @RequestMapping("calculator")
 @Tag(name = "Calculator", description = "Opérations arithmétiques sur deux nombres")
 class CalculatorController {
